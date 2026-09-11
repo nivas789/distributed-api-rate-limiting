@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RateGuard X - Dashboard Overview')}">
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <div th:replace="~{fragments/sidebar :: sidebar('dashboard')}"></div>
+
+        <!-- Main Layout Drawer -->
+        <div class="main-viewport">
+            <!-- Topbar Header -->
+            <header th:replace="~{fragments/navbar :: navbar('Dashboard Overview')}"></header>
+
+            <!-- Page Content Body -->
+            <main class="page-content fade-in">
+                
+                <!-- System Mood Banner Component -->
+                <section class="mood-banner" id="mood-container">
+                    <div class="mood-left">
+                        <span class="mood-indicator-dot mood-calm-state" id="mood-dot"></span>
+                        <div class="mood-details">
+                            <h3 class="mood-title" id="mood-title">System Status: Calm</h3>
+                            <p class="mood-desc" id="mood-description">Traffic levels are healthy. API latency is nominal. Rate limits are handling queries smoothly.</p>
+                        </div>
+                    </div>
+                    <div class="mood-controls">
+                        <button class="mood-btn active" data-mood="calm">Calm 😌</button>
+                        <button class="mood-btn" data-mood="warning">High Load ⚠️</button>
+                        <button class="mood-btn" data-mood="danger">Attack Mode 🔥</button>
+                    </div>
+                </section>
+
+                <!-- Stats Grid Section -->
+                <section class="grid grid-cols-4" style="margin-bottom: 32px;">
+                    <!-- Stat Card 1 -->
+                    <div class="card" style="border-top: 3px solid var(--primary);">
+                        <div class="card-header">
+                            <span class="text-muted" style="font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">Total Traffic (1m)</span>
+                            <div class="card-icon">
+                                <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                            </div>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 6px;" id="stat-total">1,248</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">
+                            <span class="trend-up" id="stat-total-trend" style="font-weight: 600;">↑ 12%</span> vs last minute
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 2 -->
+                    <div class="card" style="border-top: 3px solid var(--success);">
+                        <div class="card-header">
+                            <span class="text-muted" style="font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">Allowed Requests</span>
+                            <div class="card-icon" style="background-color: var(--success-glow); color: var(--success);">
+                                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            </div>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 6px;" id="stat-allowed">1,242</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">
+                            <span class="trend-up" id="stat-allowed-rate" style="font-weight: 600; color: var(--success);">99.5%</span> acceptance rate
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 3 -->
+                    <div class="card" style="border-top: 3px solid var(--danger);">
+                        <div class="card-header">
+                            <span class="text-muted" style="font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">Blocked Requests</span>
+                            <div class="card-icon" style="background-color: var(--danger-glow); color: var(--danger);">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                            </div>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 6px;" id="stat-blocked">6</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">
+                            <span class="trend-down" id="stat-blocked-rate" style="font-weight: 600; color: var(--danger);">0.5%</span> dropped traffic
+                        </div>
+                    </div>
+
+                    <!-- Stat Card 4 -->
+                    <div class="card" style="border-top: 3px solid var(--warning);">
+                        <div class="card-header">
+                            <span class="text-muted" style="font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">Avg Requests/sec</span>
+                            <div class="card-icon" style="background-color: var(--warning-glow); color: var(--warning);">
+                                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </div>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 6px;" id="stat-rps">14.8</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">
+                            <span style="font-weight: 600; color: var(--warning);">Real-time</span> traffic velocity
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Details Panels -->
+                <div class="grid" style="grid-template-columns: 2.2fr 1fr; gap: 24px;">
+                    <!-- Column 1: Live Logs -->
+                    <section class="card" style="padding: 24px 0 0 0;">
+                        <div class="flex align-center justify-between" style="padding: 0 24px 20px 24px; border-bottom: 1px solid var(--border-color);">
+                            <h3 class="card-title">Live API Requests (Simulated)</h3>
+                            <span class="badge badge-info">Realtime Stream</span>
+                        </div>
+                        <div class="table-container" style="border: none; border-radius: 0; box-shadow: none;">
+                            <table class="data-table" id="live-requests-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>API Key Alias</th>
+                                        <th>Endpoint</th>
+                                        <th>Status</th>
+                                        <th>Latency</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="placeholder-row">
+                                        <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 40px 0;">
+                                            Initialising stream channels...
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- Column 2: System Limits Info -->
+                    <aside class="flex flex-column gap-24">
+                        <section class="card">
+                            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                                <h3 class="card-title">Active Security Profile</h3>
+                            </div>
+                            <div class="flex flex-column gap-16">
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight:500;">Rate Limiter Mode</span>
+                                    <p style="font-size: 0.95rem; font-weight: 600; margin-top: 4px; color: var(--primary);">Fixed Window Token Bucket</p>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight:500;">Global Threshold</span>
+                                    <p style="font-size: 0.95rem; font-weight: 600; margin-top: 4px;">5 requests / minute / key</p>
+                                </div>
+                                <div style="border-top: 1px solid var(--border-color); padding-top: 16px;">
+                                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight:500;">Active API Keys</span>
+                                    <p style="font-size: 1.5rem; font-weight: 700; margin-top: 4px;" id="stat-active-keys">3</p>
+                                </div>
+                                <a th:href="@{/playground}" href="/playground" class="btn btn-primary" style="margin-top: 8px; width: 100%;">
+                                    <span>Open Test Playground</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </a>
+                            </div>
+                        </section>
+                    </aside>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile layout background overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Reusable Toast component target container -->
+    <div th:replace="~{fragments/toast :: toast}"></div>
+
+    <script th:src="@{/js/dashboard.js}" src="/js/dashboard.js"></script>
+</body>
+</html>

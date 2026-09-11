@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RateGuard X - API Test Playground')}">
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <div th:replace="~{fragments/sidebar :: sidebar('playground')}"></div>
+
+        <!-- Main Layout Drawer -->
+        <div class="main-viewport">
+            <!-- Topbar Header -->
+            <header th:replace="~{fragments/navbar :: navbar('API Traffic Playground')}"></header>
+
+            <!-- Page Content Body -->
+            <main class="page-content fade-in">
+                
+                <!-- Main Grid Layout -->
+                <div class="grid" style="grid-template-columns: 1fr 1.2fr; gap: 24px; margin-bottom: 24px;">
+                    
+                    <!-- Left: Request Builder Panel -->
+                    <section class="card" style="height: fit-content;">
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                            <h3 class="card-title">Request Builder</h3>
+                            <p class="text-muted" style="font-size: 0.8rem; margin-top: 4px;">Construct client queries and send traffic threshold requests.</p>
+                        </div>
+                        
+                        <div class="flex flex-column gap-16">
+                            <!-- API Key Selection -->
+                            <div>
+                                <label for="playground-key-select" class="form-label" style="display: block; margin-bottom: 8px; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Select API Key</label>
+                                <select id="playground-key-select" class="form-control" style="cursor: pointer;">
+                                    <option value="">-- No Keys Available --</option>
+                                </select>
+                            </div>
+
+                            <!-- Target Endpoint -->
+                            <div>
+                                <label for="playground-endpoint-select" class="form-label" style="display: block; margin-bottom: 8px; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Target Endpoint</label>
+                                <select id="playground-endpoint-select" class="form-control" style="cursor: pointer;">
+                                    <option value="/api/v1/users">GET /api/v1/users (Threshold-limited)</option>
+                                    <option value="/api/v1/products">GET /api/v1/products (Threshold-limited)</option>
+                                    <option value="/api/v1/checkout">POST /api/v1/checkout (Critical path)</option>
+                                </select>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="grid grid-cols-2" style="gap: 12px; margin-top: 8px;">
+                                <button id="send-request-btn" class="btn btn-primary" style="width: 100%;">
+                                    <span>Send Request</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="9 18 15 12 9 6"></polyline>
+                                    </svg>
+                                </button>
+                                <button id="stress-test-btn" class="btn btn-danger" style="width: 100%;">
+                                    <span>Simulate Burst (10x)</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Right: Response Console Panel -->
+                    <section class="card" style="display: flex; flex-direction: column;">
+                        <div class="flex align-center justify-between" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                            <h3 class="card-title">Response Console</h3>
+                            <span class="badge badge-info" id="console-status-badge">Idle</span>
+                        </div>
+                        
+                        <!-- Terminal Console -->
+                        <div class="console-box">
+                            <div class="console-header">
+                                <span>Latency: <span id="response-latency" style="color: var(--text-primary); font-weight: 500;">-</span></span>
+                                <span>Protocol: <span style="color: var(--text-primary); font-weight: 500;">HTTP/1.1</span></span>
+                            </div>
+                            <div class="console-body" id="response-body">// Click "Send Request" to invoke API and inspect response.</div>
+                            <div class="console-footer">RateGuard-Shield-Engine v1.0</div>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Bottom: Playground Logs Table -->
+                <section class="card" style="padding: 24px 0 0 0;">
+                    <div class="flex align-center justify-between" style="padding: 0 24px 20px 24px; border-bottom: 1px solid var(--border-color);">
+                        <h3 class="card-title">Playground History Logs</h3>
+                        <button id="clear-logs-btn" class="btn btn-secondary" style="padding: 6px 12px; font-size: 0.75rem;">
+                            Clear Logs
+                        </button>
+                    </div>
+                    
+                    <div class="table-container" style="border: none; border-radius: 0; box-shadow: none;">
+                        <table class="data-table" id="playground-logs-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>API Key Alias</th>
+                                    <th>Endpoint</th>
+                                    <th>Status Code</th>
+                                    <th>Backend Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="placeholder-row">
+                                    <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 32px 0;">
+                                        No queries run in this session yet.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile layout background overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Reusable Toast component target container -->
+    <div th:replace="~{fragments/toast :: toast}"></div>
+
+    <script th:src="@{/js/playground.js}" src="/js/playground.js"></script>
+</body>
+</html>

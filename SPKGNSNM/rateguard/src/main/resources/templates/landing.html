@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RateGuard X - Intelligent API Protection & Traffic Intelligence')}">
+</head>
+<body class="landing-page">
+
+    <!-- Sticky Navigation Header -->
+    <nav class="landing-nav">
+        <div class="container flex align-center justify-between" style="width: 100%;">
+            <a href="/" class="nav-logo">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="M12 8v8M9 12h6" stroke-linecap="round"/>
+                </svg>
+                <span>RateGuard <span style="color: var(--primary);">X</span></span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#testimonials">Developers</a>
+            </div>
+
+            <div>
+                <a th:href="@{/login}" href="/login" class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.85rem; margin-right: 12px;">Sign In</a>
+                <a th:href="@{/signup}" href="/signup" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem;">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section">
+        <div class="container fade-in">
+            <span class="hero-tag">RateGuard X Engine v1.0 is now live</span>
+            <h1 class="hero-title text-gradient">Defend your API thresholds.<br>In real-time.</h1>
+            <p class="hero-subtitle">
+                A military-grade token-bucket rate limiter and traffic analytics engine designed to safeguard developer infrastructure from spikes, abuse, and DDOS.
+            </p>
+            <div class="flex align-center justify-center gap-16">
+                <a th:href="@{/signup}" href="/signup" class="btn btn-accent" style="padding: 12px 28px; font-size: 0.95rem;">
+                    <span>Deploy Shield Free</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </a>
+                <a href="#features" class="btn btn-secondary" style="padding: 12px 28px; font-size: 0.95rem;">Explore Architecture</a>
+            </div>
+
+            <!-- Dynamic Animated Dashboard Mockup -->
+            <div class="dashboard-preview-wrapper">
+                <div class="preview-glow"></div>
+                <!-- Clean premium UI mockup using absolute styling/SVG -->
+                <div style="background-color: #0d121f; border-bottom: 1px solid var(--border-color); padding: 12px 24px; text-align: left;" class="flex align-center justify-between">
+                    <div class="flex align-center gap-8">
+                        <span style="width:10px; height:10px; background-color:#ef4444; border-radius:50%; display:inline-block;"></span>
+                        <span style="width:10px; height:10px; background-color:#f59e0b; border-radius:50%; display:inline-block;"></span>
+                        <span style="width:10px; height:10px; background-color:#10b981; border-radius:50%; display:inline-block;"></span>
+                        <span style="color:#64748b; font-size:0.75rem; font-family:var(--font-mono); margin-left:16px;">console.rateguard.io/dashboard</span>
+                    </div>
+                    <div style="width:50px; height:6px; background-color:var(--border-color); border-radius:3px;"></div>
+                </div>
+                <div style="background-color:#070a13; padding: 32px;" class="grid grid-cols-3">
+                    <div class="card text-center" style="background-color:#0d121f; border-color: rgba(56, 189, 248, 0.2);">
+                        <div class="card-title" style="font-size:0.8rem; color:var(--text-muted);">Active Shield Status</div>
+                        <div style="font-size:1.8rem; font-weight:700; color:var(--success); margin:12px 0;">Calm 😌</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted);">Traffic streams within nominal limits</div>
+                    </div>
+                    <div class="card text-center" style="background-color:#0d121f;">
+                        <div class="card-title" style="font-size:0.8rem; color:var(--text-muted);">Blocked Rate (429)</div>
+                        <div style="font-size:1.8rem; font-weight:700; color:var(--danger); margin:12px 0;">0.2%</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted);">6 suspicious requests dropped</div>
+                    </div>
+                    <div class="card text-center" style="background-color:#0d121f;">
+                        <div class="card-title" style="font-size:0.8rem; color:var(--text-muted);">Global Latency</div>
+                        <div style="font-size:1.8rem; font-weight:700; color:var(--primary); margin:12px 0;">12ms</div>
+                        <div style="font-size:0.7rem; color:var(--text-muted);">Real-time proxy response velocity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Stats Ticker -->
+    <section class="section-padding" style="background-color: rgba(var(--bg-main-rgb), 0.3); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);">
+        <div class="container text-center">
+            <div class="grid grid-cols-4">
+                <div>
+                    <h3 style="font-size: 2.5rem; font-weight:800;" class="text-gradient">99.99%</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); text-transform:uppercase; margin-top:8px;">Shield Uptime</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; font-weight:800;" class="text-gradient">&lt; 1ms</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); text-transform:uppercase; margin-top:8px;">Overhead Latency</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; font-weight:800;" class="text-gradient">40M+</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); text-transform:uppercase; margin-top:8px;">Requests Handled</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; font-weight:800;" class="text-gradient">0</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); text-transform:uppercase; margin-top:8px;">Cold Starts Required</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bento Grid Features Section -->
+    <section id="features" class="section-padding">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-tag">Security Architecture</span>
+                <h2 class="section-title text-gradient">Complete Traffic Control</h2>
+                <p class="section-subtitle" style="margin-left: auto; margin-right: auto;">Everything you need to secure, monitor, and stress-test your application endpoints.</p>
+            </div>
+
+            <div class="grid grid-cols-3">
+                <!-- Feature 1 -->
+                <div class="bento-card">
+                    <div class="card-icon" style="margin-bottom: 20px;">
+                        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </div>
+                    <h3 style="font-size:1.25rem; margin-bottom:12px;">Token Bucket Limiter</h3>
+                    <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">
+                        High-efficiency algorithms that dynamically evaluate request thresholds to allow bursts while flattening sustained spikes.
+                    </p>
+                </div>
+                <!-- Feature 2 -->
+                <div class="bento-card">
+                    <div class="card-icon" style="background-color: var(--accent-glow); color: var(--accent); margin-bottom: 20px;">
+                        <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                    </div>
+                    <h3 style="font-size:1.25rem; margin-bottom:12px;">Real-Time Insights</h3>
+                    <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">
+                        Visualize allowed versus blocked request ratios, monitor traffic velocity, and track your top consumer client keys instantly.
+                    </p>
+                </div>
+                <!-- Feature 3 -->
+                <div class="bento-card">
+                    <div class="card-icon" style="background-color: var(--warning-glow); color: var(--warning); margin-bottom: 20px;">
+                        <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </div>
+                    <h3 style="font-size:1.25rem; margin-bottom:12px;">Interactive Testbench</h3>
+                    <p style="font-size:0.875rem; color:var(--text-secondary); line-height:1.6;">
+                        A sandbox playground allowing developers to build requests, trigger burst traffic simulations, and examine backend JSON console logs.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="section-padding" style="background-color: rgba(var(--bg-main-rgb), 0.2); border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-tag">Developer Endorsements</span>
+                <h2 class="section-title text-gradient">Loved by engineering teams</h2>
+            </div>
+            
+            <div class="grid grid-cols-2">
+                <div class="testimonial-card">
+                    <p style="font-size:0.95rem; color:var(--text-secondary); font-style:italic; line-height:1.7; margin-bottom:24px;">
+                        "Integrating rate-limiting used to require spinning up Redis caches and writing complex interceptors. With RateGuard X, we had API protection configured and visualised in five minutes flat."
+                    </p>
+                    <div class="flex align-center gap-12">
+                        <div class="testimonial-avatar">AL</div>
+                        <div>
+                            <div style="font-size:0.875rem; font-weight:600;">Alex Lin</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);">Lead Platform Architect, Veloce</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p style="font-size:0.95rem; color:var(--text-secondary); font-style:italic; line-height:1.7; margin-bottom:24px;">
+                        "The interactive playground console made debugging rate limits a breeze. We simulated concurrent stress loads directly from the dashboard and watched the token bucket protect our service live."
+                    </p>
+                    <div class="flex align-center gap-12">
+                        <div class="testimonial-avatar" style="background-color: var(--primary-glow); color:var(--primary);">MD</div>
+                        <div>
+                            <div style="font-size:0.875rem; font-weight:600;">Marina Davis</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);">Senior Backend Engineer, StackFlow</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section-padding" style="border-top: 1px solid var(--border-color);">
+        <div class="container">
+            <div class="text-center" style="margin-bottom: 60px;">
+                <span class="section-tag">Flexible Plans</span>
+                <h2 class="section-title text-gradient">Fair, scale-as-you-grow pricing</h2>
+            </div>
+
+            <div class="grid grid-cols-3">
+                <!-- Hobby Plan -->
+                <div class="pricing-card card">
+                    <div class="card-title" style="font-weight:600;">Sandbox Shield</div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">For testing and personal APIs</p>
+                    <div class="pricing-price">$0<span>/ month</span></div>
+                    <ul class="pricing-list">
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Up to 3 API Keys</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 60 req/min rate ceilings</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Real-time simulation stream</li>
+                        <li style="color:var(--text-muted);"><svg viewBox="0 0 24 24" style="color:var(--text-muted);"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg> Detailed analytics graphs</li>
+                    </ul>
+                    <a th:href="@{/signup}" href="/signup" class="btn btn-secondary" style="width:100%;">Create Free Tier</a>
+                </div>
+
+                <!-- Pro Plan -->
+                <div class="pricing-card card premium-tier">
+                    <div style="position:absolute; top:12px; right:12px;" class="badge badge-info">MOST POPULAR</div>
+                    <div class="card-title" style="font-weight:600; color:var(--primary);">Startup Shield</div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">For growing production platforms</p>
+                    <div class="pricing-price">$29<span>/ month</span></div>
+                    <ul class="pricing-list">
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited API Keys</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> 1,200 req/min rate ceilings</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Real-time simulation stream</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Full historical analytics report</li>
+                    </ul>
+                    <a th:href="@{/signup}" href="/signup" class="btn btn-primary" style="width:100%;">Deploy Startup Shield</a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="pricing-card card">
+                    <div class="card-title" style="font-weight:600;">Enterprise Shield</div>
+                    <p style="font-size:0.8rem; color:var(--text-muted); margin-top:4px;">For extreme high-volume requirements</p>
+                    <div class="pricing-price">$149<span>/ month</span></div>
+                    <ul class="pricing-list">
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Unlimited API Keys</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Custom threshold ceilings</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Dedicated support SLA</li>
+                        <li><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg> Single sign-on (SSO)</li>
+                    </ul>
+                    <a th:href="@{/signup}" href="/signup" class="btn btn-secondary" style="width:100%;">Contact Platform Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Landing Footer -->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

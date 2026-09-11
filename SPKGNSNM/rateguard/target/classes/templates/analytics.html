@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RateGuard X - System Traffic Analytics')}">
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <div th:replace="~{fragments/sidebar :: sidebar('analytics')}"></div>
+
+        <!-- Main Layout Drawer -->
+        <div class="main-viewport">
+            <!-- Topbar Header -->
+            <header th:replace="~{fragments/navbar :: navbar('Traffic Analytics & Insights')}"></header>
+
+            <!-- Page Content Body -->
+            <main class="page-content fade-in">
+                
+                <!-- KPI Row Section -->
+                <section class="grid grid-cols-3" style="margin-bottom: 32px;">
+                    <div class="card" style="border-top: 3px solid var(--primary);">
+                        <div class="card-header" style="margin-bottom: 8px;">
+                            <span class="text-muted" style="font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">Analysis Traffic Volume</span>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 4px;" id="kpi-total">0</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Total cumulative requests</div>
+                    </div>
+                    
+                    <div class="card" style="border-top: 3px solid var(--success);">
+                        <div class="card-header" style="margin-bottom: 8px;">
+                            <span class="text-muted" style="font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">Overall Allowed</span>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 4px;" id="kpi-allowed">0</div>
+                        <div style="font-size: 0.75rem; color: var(--success); font-weight: 500;" id="kpi-allowed-pct">0% success rate</div>
+                    </div>
+
+                    <div class="card" style="border-top: 3px solid var(--danger);">
+                        <div class="card-header" style="margin-bottom: 8px;">
+                            <span class="text-muted" style="font-size: 0.8rem; font-weight: 500; text-transform: uppercase;">Blocked (429s)</span>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: 700; font-family: var(--font-display); margin-bottom: 4px;" id="kpi-blocked">0</div>
+                        <div style="font-size: 0.75rem; color: var(--danger); font-weight: 500;" id="kpi-blocked-pct">0% block rate</div>
+                    </div>
+                </section>
+
+                <!-- Charts Container Grid -->
+                <div class="grid" style="grid-template-columns: 1.2fr 1fr; gap: 24px; margin-bottom: 32px;">
+                    <!-- Line Chart: Queries over time -->
+                    <section class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                            <h3 class="card-title">Request Activity History</h3>
+                        </div>
+                        <div style="position: relative; height: 260px; width: 100%;">
+                            <canvas id="trafficLineChart"></canvas>
+                        </div>
+                    </section>
+
+                    <!-- Doughnut Chart: Allowed vs Blocked ratio -->
+                    <section class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                            <h3 class="card-title">Access Distribution</h3>
+                        </div>
+                        <div style="position: relative; height: 260px; width: 100%; display: flex; justify-content: center;">
+                            <canvas id="ratioDoughnutChart" style="max-height:240px; max-width:240px;"></canvas>
+                        </div>
+                    </section>
+                </div>
+
+                <!-- Bottom Panel: Key Usage Analysis -->
+                <section class="card" style="padding: 24px 0 0 0;">
+                    <div style="padding: 0 24px 20px 24px; border-bottom: 1px solid var(--border-color);">
+                        <h3 class="card-title">Top Key Consumers</h3>
+                    </div>
+                    <div class="table-container" style="border: none; border-radius: 0; box-shadow: none;">
+                        <table class="data-table" id="consumers-table">
+                            <thead>
+                                <tr>
+                                    <th>API Key Alias</th>
+                                    <th>Token Identifier</th>
+                                    <th>Requests Handled</th>
+                                    <th>Requests Allowed</th>
+                                    <th>Requests Blocked</th>
+                                    <th>Access Ratio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" style="text-align: center; color: var(--text-muted); padding: 24px 0;">
+                                        Loading consumers logs...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile layout background overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Reusable Toast component target container -->
+    <div th:replace="~{fragments/toast :: toast}"></div>
+
+    <!-- Chart.js for premium chart visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script th:src="@{/js/analytics.js}" src="/js/analytics.js"></script>
+</body>
+</html>
