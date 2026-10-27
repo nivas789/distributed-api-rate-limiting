@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RateGuard X - API Key Registry')}">
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <div th:replace="~{fragments/sidebar :: sidebar('api-keys')}"></div>
+
+        <!-- Main Layout Drawer -->
+        <div class="main-viewport">
+            <!-- Topbar Header -->
+            <header th:replace="~{fragments/navbar :: navbar('API Key Credentials')}"></header>
+
+            <!-- Page Content Body -->
+            <main class="page-content fade-in">
+                
+                <div class="card" style="padding: 32px 0 0 0; margin-bottom: 24px;">
+                    <div class="flex align-center justify-between" style="padding: 0 32px 24px 32px; border-bottom: 1px solid var(--border-color);">
+                        <div>
+                            <h3 class="card-title">Active API Keys</h3>
+                            <p class="text-muted" style="font-size: 0.85rem; margin-top: 4px;">Credentials used to identify client applications and enforce rate thresholds.</p>
+                        </div>
+                        <div class="flex align-center gap-16">
+                            <span class="badge badge-info" id="key-count-badge">0 keys</span>
+                            <button id="open-create-modal-btn" class="btn btn-primary">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                                <span>Create API Key</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="table-container" style="border: none; border-radius: 0; box-shadow: none;">
+                        <table class="data-table" id="keys-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Secret Token</th>
+                                    <th>Rate Limit</th>
+                                    <th>Status</th>
+                                    <th style="text-align: right;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="placeholder-row">
+                                    <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 40px 0;">
+                                        Loading API keys from database...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- CREATE API KEY MODAL DIALOG -->
+    <div class="modal-overlay" id="create-key-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="card-title" style="font-size: 1.25rem;">Create API Key</h3>
+                <button class="modal-close-btn" id="close-modal-btn" aria-label="Close Modal">
+                    <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+            </div>
+            
+            <form id="create-key-form" novalidate>
+                <!-- Key Name -->
+                <div class="floating-group" style="margin-bottom: 1.5rem;">
+                    <input 
+                        type="text" 
+                        id="keyName" 
+                        class="floating-control" 
+                        placeholder="e.g. Mobile-App-Prod" 
+                        required
+                    >
+                    <label for="keyName" class="floating-label">Key Name / Description</label>
+                </div>
+
+                <!-- Rate Limit -->
+                <div class="form-group" style="margin-bottom: 2rem;">
+                    <label for="rateLimit" class="form-label" style="display: block; margin-bottom: 8px; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary); text-transform: uppercase;">Rate Limit Threshold</label>
+                    <select 
+                        id="rateLimit" 
+                        class="form-control" 
+                        style="cursor: pointer; padding: 12px 14px;"
+                    >
+                        <option value="5">5 requests / minute</option>
+                        <option value="10">10 requests / minute</option>
+                        <option value="20">20 requests / minute</option>
+                        <option value="60">60 requests / minute</option>
+                    </select>
+                </div>
+
+                <div class="flex align-center justify-end gap-12">
+                    <button type="button" id="cancel-modal-btn" class="btn btn-secondary">Cancel</button>
+                    <button type="submit" id="generate-btn" class="btn btn-primary">
+                        <span>Generate Key</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Mobile layout background overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Reusable Toast component target container -->
+    <div th:replace="~{fragments/toast :: toast}"></div>
+
+    <script th:src="@{/js/api_keys.js}" src="/js/api_keys.js"></script>
+</body>
+</html>

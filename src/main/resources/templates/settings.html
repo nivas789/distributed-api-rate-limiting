@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head('RateGuard X - Account Settings')}">
+</head>
+<body>
+
+    <div class="app-layout">
+        <!-- Sidebar Navigation -->
+        <div th:replace="~{fragments/sidebar :: sidebar('settings')}"></div>
+
+        <!-- Main Layout Drawer -->
+        <div class="main-viewport">
+            <!-- Topbar Header -->
+            <header th:replace="~{fragments/navbar :: navbar('Account Settings')}"></header>
+
+            <!-- Page Content Body -->
+            <main class="page-content fade-in">
+                
+                <div class="grid" style="grid-template-columns: 2fr 1fr; gap: 24px;">
+                    
+                    <!-- Left Column: Forms -->
+                    <div class="flex flex-column gap-24">
+                        <!-- Profile Card -->
+                        <section class="card">
+                            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 24px;">
+                                <h3 class="card-title">Profile Configuration</h3>
+                                <p class="text-muted" style="font-size: 0.8rem; margin-top: 4px;">Update your account credentials and system identity.</p>
+                            </div>
+                            
+                            <form id="profile-settings-form" novalidate>
+                                <div class="grid grid-cols-2" style="gap: 16px;">
+                                    <div class="floating-group">
+                                        <input 
+                                            type="text" 
+                                            id="settings-fullname" 
+                                            class="floating-control" 
+                                            th:value="${user.fullName}" 
+                                            value="System Admin" 
+                                            required
+                                        >
+                                        <label for="settings-fullname" class="floating-label">Full Name</label>
+                                    </div>
+                                    <div class="floating-group">
+                                        <input 
+                                            type="email" 
+                                            id="settings-email" 
+                                            class="floating-control" 
+                                            th:value="${user.email}" 
+                                            value="admin@rateguard.io" 
+                                            required
+                                        >
+                                        <label for="settings-email" class="floating-label">Email Address</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end" style="margin-top: 8px;">
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </form>
+                        </section>
+
+                        <!-- Change Password Card -->
+                        <section class="card">
+                            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 24px;">
+                                <h3 class="card-title">Modify Credentials</h3>
+                                <p class="text-muted" style="font-size: 0.8rem; margin-top: 4px;">Ensure your account uses a secure, long password.</p>
+                            </div>
+                            
+                            <form id="password-settings-form" novalidate>
+                                <div class="floating-group">
+                                    <input 
+                                        type="password" 
+                                        id="settings-old-pass" 
+                                        class="floating-control" 
+                                        placeholder="Current Password" 
+                                        required
+                                    >
+                                    <label for="settings-old-pass" class="floating-label">Current Password</label>
+                                </div>
+                                <div class="grid grid-cols-2" style="gap: 16px;">
+                                    <div class="floating-group">
+                                        <input 
+                                            type="password" 
+                                            id="settings-new-pass" 
+                                            class="floating-control" 
+                                            placeholder="New Password" 
+                                            required
+                                        >
+                                        <label for="settings-new-pass" class="floating-label">New Password</label>
+                                    </div>
+                                    <div class="floating-group">
+                                        <input 
+                                            type="password" 
+                                            id="settings-confirm-pass" 
+                                            class="floating-control" 
+                                            placeholder="Confirm New Password" 
+                                            required
+                                        >
+                                        <label for="settings-confirm-pass" class="floating-label">Confirm New Password</label>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex justify-end" style="margin-top: 8px;">
+                                    <button type="submit" class="btn btn-primary">Update Password</button>
+                                </div>
+                            </form>
+                        </section>
+                    </div>
+
+                    <!-- Right Column: Metadata details -->
+                    <aside class="flex flex-column gap-24">
+                        <section class="card">
+                            <div style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px; margin-bottom: 20px;">
+                                <h3 class="card-title">Developer Context</h3>
+                            </div>
+                            <div class="flex flex-column gap-16">
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight:500;">Account ID</span>
+                                    <p style="font-size: 0.85rem; font-family: var(--font-mono); font-weight: 500; margin-top: 4px; word-break: break-all;" th:text="${user.id}">RG-USR-49018A</p>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight:500;">Membership Plan</span>
+                                    <p style="font-size: 0.95rem; font-weight: 600; margin-top: 4px; color: var(--primary);">Developer Shield Pro</p>
+                                </div>
+                                <div>
+                                    <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight:500;">Account Since</span>
+                                    <p style="font-size: 0.9rem; font-weight: 500; margin-top: 4px;" th:text="${user.createdAt} ? ${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')} : '2026-06-29 18:50'">2026-06-29 18:50</p>
+                                </div>
+                            </div>
+                        </section>
+                    </aside>
+
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile layout background overlay -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Reusable Toast component target container -->
+    <div th:replace="~{fragments/toast :: toast}"></div>
+
+    <!-- Wire Settings JS interactions -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Sidebar drawer
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebar-overlay');
+            if (sidebarToggle && sidebar && sidebarOverlay) {
+                sidebarToggle.addEventListener('click', () => {
+                    sidebar.classList.add('open');
+                    sidebarOverlay.classList.add('active');
+                });
+                sidebarOverlay.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                    sidebarOverlay.classList.remove('active');
+                });
+            }
+
+            // Profile Dropdown Toggle
+            const trigger = document.getElementById('profile-trigger');
+            const dropdown = document.getElementById('profile-dropdown');
+            if (trigger && dropdown) {
+                trigger.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    dropdown.classList.toggle('active');
+                });
+                document.addEventListener('click', () => {
+                    dropdown.classList.remove('active');
+                });
+            }
+
+            // Theme toggle implementation
+            const themeBtn = document.getElementById('theme-toggle');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+                    const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', nextTheme);
+                    localStorage.setItem('rg_theme', nextTheme);
+                });
+            }
+
+            // Simulated form submissions with notifications
+            const profileForm = document.getElementById('profile-settings-form');
+            if (profileForm) {
+                profileForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    if (window.toastNotification) {
+                        window.toastNotification.show('Profile updated successfully!', 'success');
+                    } else {
+                        alert('Profile settings saved successfully!');
+                    }
+                });
+            }
+
+            const passwordForm = document.getElementById('password-settings-form');
+            if (passwordForm) {
+                passwordForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const newP = document.getElementById('settings-new-pass').value;
+                    const confP = document.getElementById('settings-confirm-pass').value;
+                    if (newP !== confP) {
+                        if (window.toastNotification) {
+                            window.toastNotification.show('Passwords do not match!', 'error');
+                        } else {
+                            alert('Passwords do not match!');
+                        }
+                        return;
+                    }
+                    if (window.toastNotification) {
+                        window.toastNotification.show('Password credential updated!', 'success');
+                        passwordForm.reset();
+                    } else {
+                        alert('Password credential updated!');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
